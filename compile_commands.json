@@ -1,0 +1,12 @@
+[
+    {
+        "directory": "/home/avr1/software/cc5x",
+        "command": "cc5x src/main.c -I./include/headers -D__CC5X__ -DPIC16F15313 -o output/main.hex",
+        "file": "src/main.c"
+    },
+    {
+        "directory": "/home/avr1/software/cc5x",
+        "command": "cc5x src/utils.c -I./include/headers -D__CC5X__ -DPIC16F15313 -o output/utils.hex",
+        "file": "src/utils.c"
+    }
+]

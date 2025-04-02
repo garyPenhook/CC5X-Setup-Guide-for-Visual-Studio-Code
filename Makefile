@@ -1,9 +1,9 @@
-# PIC Project Makefile for CC5X through Crossover
+# PIC Project Makefile for CC5X
 
 # Project settings
-PROJECT = my_pic_project
-DEVICE = 16F877
-CC = cc5x-crossover.sh
+PROJECT = pic_project
+DEVICE = 16F15313
+CC = ./cc5x-direct.sh
 
 # Directories
 SRCDIR = src
@@ -14,16 +14,13 @@ OUTPUTDIR = output
 SOURCES = $(wildcard $(SRCDIR)/*.c)
 OBJECTS = $(patsubst $(SRCDIR)/%.c,$(OUTPUTDIR)/%.hex,$(SOURCES))
 
-# Compiler flags
-CFLAGS = -p$(DEVICE) -a -L -V
-
 # Default target
 all: $(OBJECTS)
 
 # Rule to compile .c files to .hex
 $(OUTPUTDIR)/%.hex: $(SRCDIR)/%.c
 	@mkdir -p $(OUTPUTDIR)
-	$(CC) $< $(CFLAGS) -o$(OUTPUTDIR)/$*
+	$(CC) $<
 
 # Clean target
 clean:

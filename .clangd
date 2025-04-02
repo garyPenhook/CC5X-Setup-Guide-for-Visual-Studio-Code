@@ -1,0 +1,17 @@
+CompileFlags:
+  Add: [
+    -D__CC5X__,
+    -DNO_BIT_DEFINES,
+    -I/home/avr1/software/cc5x/include/headers
+  ]
+
+Diagnostics:
+  Suppress: ['unknown-pragmas', 'unused-parameter']
+
+InlayHints:
+  Enabled: Yes
+  ParameterNames: Yes
+  DeducedTypes: Yes
+
+Hover:
+  ShowAKA: Yes

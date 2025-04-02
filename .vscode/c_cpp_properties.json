@@ -1,15 +1,19 @@
 {
     "configurations": [
         {
-            "name": "PIC C Configuration",
+            "name": "PIC16F15313",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${env:HOME}/.cxoffice/Crossword_Compiler_9/drive_c/Program Files/bknd/CC5X/**"
+                "${workspaceFolder}/include/headers"
             ],
-            "defines": [],
+            "defines": [
+                "__CC5X__",
+                "nop()=",
+                "LED=PORTA_bits.RA0",
+                "PORTA_bits=(*((struct { unsigned RA0:1; unsigned RA1:1; unsigned RA2:1; unsigned RA3:1; unsigned RA4:1; unsigned RA5:1; unsigned :2; } volatile *)0x0C))"
+            ],
             "compilerPath": "/usr/bin/gcc",
             "cStandard": "c99",
-            "cppStandard": "c++14",
             "intelliSenseMode": "linux-gcc-x64"
         }
     ],

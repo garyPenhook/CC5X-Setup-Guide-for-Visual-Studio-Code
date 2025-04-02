@@ -4,7 +4,7 @@
         {
             "label": "CC5X Direct Wine",
             "type": "shell",
-            "command": "${workspaceFolder}/cc5x-direct.sh",
+            "command": "${workspaceFolder}/scripts/cc5x-direct.sh",
             "args": [
                 "${file}"
             ],
@@ -22,7 +22,7 @@
         {
             "label": "CC5X Native Compile",
             "type": "shell",
-            "command": "${workspaceFolder}/cc5x-compile.sh",
+            "command": "${workspaceFolder}/scripts/cc5x-compile.sh",
             "args": [
                 "${file}"
             ],
@@ -37,7 +37,7 @@
         {
             "label": "GCC Mock Compile",
             "type": "shell",
-            "command": "${workspaceFolder}/gcc-mock-compile.sh",
+            "command": "${workspaceFolder}/scripts/gcc-mock-compile.sh",
             "args": [
                 "${file}"
             ],
@@ -64,7 +64,7 @@
         {
             "label": "Project Cleanup",
             "type": "shell",
-            "command": "${workspaceFolder}/cleanup.sh",
+            "command": "${workspaceFolder}/scripts/cleanup.sh",
             "presentation": {
                 "reveal": "always",
                 "panel": "new",

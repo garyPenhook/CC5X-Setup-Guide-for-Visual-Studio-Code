@@ -1,100 +1,128 @@
-CC5X Version 3.8C,   File: main.c               2. Apr 2025  12:49   Page 1
+CC5X Version 3.8C,   File: main.c               2. Apr 2025  14:34   Page 1
 
 ADDR CODE  LINE SOURCE
 
            0001 
            0002 ; CC5X Version 3.8C, Copyright (c) B Knudsen Data
            0003 ; C compiler for the PICmicro family
-           0004 ; ************   2. Apr 2025  12:49  *************
+           0004 ; ************   2. Apr 2025  14:34  *************
            0005 
            0006         processor  16F15313
            0007         radix  DEC
            0008 
-     000C  0009 PORTA       EQU   0x0C
-     0012  0010 TRISA       EQU   0x12
-     0000  0011 LED         EQU   0
-     0020  0012 millisec    EQU   0x20
-     0021  0013 i           EQU   0x21
-           0014 
-0000 280B  0015         GOTO main
-           0016 
-           0017   ; FILE main.c
-           0018                         ;/*
-           0019                         ; * Project: PIC Sample Project
-           0020                         ; * Description: Sample template for PIC microcontroller
-           0021                         ; * Device: PIC16F15313
-           0022                         ; */
-           0023                         ;
-           0024                         ;#pragma chip PIC16F15313
-           0025                         ;
-           0026                         ;// Include device-specific header
-           0027                         ;// #include "16F15313.H"
-           0028                         ;
-           0029                         ;// Pin definitions
-           0030                         ;#pragma bit LED @ PORTA.0
-           0031                         ;
-           0032                         ;// Delay function
-           0033                         ;void delay(unsigned char millisec)
-           0034                         ;{
-           0035 delay
-0001 00A0  0036         MOVWF millisec
-           0037                         ;    /* delays a multiple of 1 millisecond at 4 MHz */
-           0038                         ;    do {
-           0039                         ;        unsigned char i = 100;
-0002 3064  0040 m001    MOVLW 100
-0003 00A1  0041         MOVWF i
-           0042                         ;        do {
-           0043                         ;            nop();
-0004 0000  0044 m002    NOP  
-           0045                         ;            nop();
-0005 0000  0046         NOP  
-           0047                         ;        } while(--i > 0);
-0006 0BA1  0048         DECFSZ i,1
-0007 2804  0049         GOTO  m002
-           0050                         ;    } while(--millisec > 0);
-0008 0BA0  0051         DECFSZ millisec,1
-0009 2802  0052         GOTO  m001
-           0053                         ;}
-000A 0008  0054         RETURN
-           0055                         ;
-           0056                         ;void main(void)
-           0057                         ;{
-           0058 main
-           0059                         ;    // Initialize ports
-           0060                         ;    PORTA = 0;       // Initialize PORTA
-CC5X Version 3.8C,   File: main.c               2. Apr 2025  12:49   Page 2
+8008 3FFF  0009         __config 0x8008, 0x3FFF
+8009 3F9F  0010         __config 0x8009, 0x3F9F
+800A 3FFF  0011         __config 0x800A, 0x3FFF
+           0012 
+     0000  0013 Carry       EQU   0
+     000C  0014 PORTA       EQU   0x0C
+     0012  0015 TRISA       EQU   0x12
+     088D  0016 OSCCON1     EQU   0x88D
+     1F38  0017 ANSELA      EQU   0x1F38
+     0000  0018 RA0         EQU   0
+     0020  0019 ms          EQU   0x20
+     0021  0020 i           EQU   0x21
+     0022  0021 j           EQU   0x22
+           0022 
+0000 2801  0023         GOTO main
+           0024 
+           0025   ; FILE main.c
+           0026                         ;/*
+           0027                         ; * Simple blink LED example for PIC16F15313
+           0028                         ; * Using CC5X Compiler
+           0029                         ; */
+           0030                         ;
+           0031                         ;#include "16F15313.H"
+           0032                         ;#pragma config WDTE = OFF // Disable Watchdog timer
+           0033                         ;#pragma config MCLRE = ON // Master Clear Enable
+           0034                         ;#pragma config LVP = ON   // Low Voltage Programming Enable
+           0035                         ;
+           0036                         ;// Function prototypes
+           0037                         ;void delay_ms(unsigned int ms);
+           0038                         ;void initialize(void);
+           0039                         ;
+           0040                         ;void main(void) {
+           0041 main
+           0042                         ;  // Initialize ports
+           0043                         ;  initialize();
+0001 0140  0044         MOVLB 0
+0002 200B  0045         CALL  initialize
+           0046                         ;
+           0047                         ;  // Main program loop
+           0048                         ;  while (1) {
+           0049                         ;    // Toggle LED on RA0
+           0050                         ;    RA0 = 1; // LED on
+0003 0140  0051         MOVLB 0
+0004 140C  0052 m001    BSF   0x0C,RA0
+           0053                         ;    delay_ms(500);
+0005 30F4  0054         MOVLW 244
+0006 2014  0055         CALL  delay_ms
+           0056                         ;    RA0 = 0; // LED off
+0007 100C  0057         BCF   0x0C,RA0
+           0058                         ;    delay_ms(500);
+0008 30F4  0059         MOVLW 244
+0009 2014  0060         CALL  delay_ms
+CC5X Version 3.8C,   File: main.c               2. Apr 2025  14:34   Page 2
 
 ADDR CODE  LINE SOURCE
 
-000B 0140  0061         MOVLB 0
-000C 018C  0062         CLRF  PORTA
-           0063                         ;    TRISA = 0b11111110; // Set RA0 as output, others as inputs
-000D 30FE  0064         MOVLW 254
-000E 0092  0065         MOVWF TRISA
-           0066                         ;    
-           0067                         ;    // Main loop
-           0068                         ;    while(1) {
-           0069                         ;        LED = 1;     // Turn LED on
-000F 140C  0070 m003    BSF   0x0C,LED
-           0071                         ;        delay(200);  // Delay 200ms
-0010 30C8  0072         MOVLW 200
-0011 2001  0073         CALL  delay
-           0074                         ;        LED = 0;     // Turn LED off
-0012 100C  0075         BCF   0x0C,LED
-           0076                         ;        delay(200);  // Delay 200ms
-0013 30C8  0077         MOVLW 200
-0014 2001  0078         CALL  delay
-           0079                         ;    }
-0015 280F  0080         GOTO  m003
-           0081 
-           0082         END
-           0083 
-           0084 
-           0085 ; *** KEY INFO ***
-           0086 
-           0087 ; 0x0001   10 word(s)  0 % : delay
-           0088 ; 0x000B   11 word(s)  0 % : main
-           0089 
-           0090 ; RAM usage: 2 bytes (2 local), 254 bytes free
-           0091 ; Maximum call level: 1
-           0092 ; Total of 22 code words (1 %)
+           0061                         ;  }
+000A 2804  0062         GOTO  m001
+           0063                         ;}
+           0064                         ;
+           0065                         ;void initialize(void) {
+           0066 initialize
+           0067                         ;  // Configure port A
+           0068                         ;  TRISA = 0b11111110; // RA0 as output, others as inputs
+000B 30FE  0069         MOVLW 254
+000C 0092  0070         MOVWF TRISA
+           0071                         ;  PORTA = 0x00;       // Initialize PORTA
+000D 018C  0072         CLRF  PORTA
+           0073                         ;
+           0074                         ;  // Configure oscillator
+           0075                         ;  OSCCON1 = 0x60; // HFINTOSC at 4MHz
+000E 3060  0076         MOVLW 96
+000F 0151  0077         MOVLB 17
+0010 008D  0078         MOVWF OSCCON1
+           0079                         ;
+           0080                         ;  // Disable analog functionality
+           0081                         ;  ANSELA = 0x00;
+0011 017E  0082         MOVLB 62
+0012 01B8  0083         CLRF  ANSELA
+           0084                         ;}
+0013 0008  0085         RETURN
+           0086                         ;
+           0087                         ;void delay_ms(unsigned int ms) {
+           0088 delay_ms
+0014 00A0  0089         MOVWF ms
+           0090                         ;  unsigned int i, j;
+           0091                         ;  for (i = 0; i < ms; i++) {
+0015 01A1  0092         CLRF  i
+0016 0820  0093 m002    MOVF  ms,W
+0017 0221  0094         SUBWF i,W
+0018 1803  0095         BTFSC 0x03,Carry
+0019 281F  0096         GOTO  m004
+           0097                         ;    // This loop creates approximately 1ms delay at 4MHz
+           0098                         ;    for (j = 0; j < 400; j++) {
+001A 01A2  0099         CLRF  j
+           0100                         ;      // Empty loop with no inline assembly
+           0101                         ;    }
+001B 0AA2  0102 m003    INCF  j,1
+001C 281B  0103         GOTO  m003
+           0104                         ;  }
+001D 0AA1  0105         INCF  i,1
+001E 2816  0106         GOTO  m002
+001F 0008  0107 m004    RETURN
+           0108 
+           0109         END
+           0110 
+           0111 
+           0112 ; *** KEY INFO ***
+           0113 
+           0114 ; 0x0014   12 word(s)  0 % : delay_ms
+           0115 ; 0x000B    9 word(s)  0 % : initialize
+           0116 ; 0x0001   10 word(s)  0 % : main
+           0117 
+           0118 ; RAM usage: 3 bytes (3 local), 253 bytes free
+           0119 ; Maximum call level: 1
+           0120 ; Total of 32 code words (1 %)
