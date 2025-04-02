@@ -33,6 +33,7 @@ void initialize(void) {
 
   // Configure oscillator
   OSCCON1 = 0x60; // HFINTOSC at 4MHz
+  OSCFRQ = 0x02;  // Set frequency to 4MHz
 
   // Disable analog functionality
   ANSELA = 0x00;
