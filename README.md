@@ -1,18 +1,31 @@
-# Simplified PIC Development Template
+# CC5X PIC Development Environment
 
-This is a lightweight template for PIC microcontroller development using the CC5X compiler.
+This repository contains a development environment for PIC microcontroller programming using the CC5X compiler under Linux.
 
-## Directory Structure
-- `src/` - Source code (main.c and project headers)
-- `include/` - Only the header files you actually need
-- `output/` - Build output files
-- `build.sh` - Single compilation script
+## Overview
 
-## Usage
-1. Edit `src/main.c` with your application code
-2. Run `./build.sh [PIC_MODEL]` to compile (defaults to 16F15313)
-   Example: `./build.sh 16F877`
-3. Output files will be in the `output/` directory
+This project provides a streamlined development workflow for PIC microcontroller programming using B Knudsen's CC5X compiler through Wine on Linux systems. It includes various helper scripts and VS Code integration for a smoother development experience.
 
-## Configuration
-- Edit the `build.sh` script to change default settings
+## Setup
+
+1. Install dependencies:
+   ```bash
+   sudo apt-get install wine
+   ```
+
+2. Set up CC5X:
+   - Install CC5X using Wine or CrossOver
+   - Default expected location: `~/.cxoffice/Crossword_Compiler_9/drive_c/Program Files/bknd/CC5X`
+   - Alternatively, install to `~/bin/cc5x/` for direct access
+
+3. Initialize project structure:
+   ```bash
+   ./scripts/cleanup.sh    # Creates required directories
+   ./cc5x-direct.sh        # Tests the compiler setup
+   ```
+
+4. Copy PIC headers (VS Code task):
+   - Run the "Copy PIC Headers" task in VS Code
+   - Or manually: `mkdir -p include/headers && cp "~/.cxoffice/Crossword_Compiler_9/drive_c/Program Files/bknd/CC5X/"*.H include/headers/`
+
+## Project Structure
