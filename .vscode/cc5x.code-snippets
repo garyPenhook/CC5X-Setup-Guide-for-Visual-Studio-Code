@@ -1,0 +1,40 @@
+{
+    "CC5X Pragma Config": {
+        "prefix": "pragma-config",
+        "body": [
+            "#pragma config WDTE = OFF // Disable Watchdog timer",
+            "#pragma config MCLRE = ON // Master Clear Enable",
+            "#pragma config LVP = ON   // Low Voltage Programming Enable"
+        ],
+        "description": "Common PIC configuration pragmas"
+    },
+    "CC5X Bit Variables": {
+        "prefix": "bit-var",
+        "body": "bit ${1:flagName};",
+        "description": "Define a bit variable"
+    },
+    "CC5X Interrupt": {
+        "prefix": "interrupt",
+        "body": [
+            "#pragma origin 4",
+            "interrupt int_server(void)",
+            "{",
+            "    // Save important registers",
+            "    char saved_status = STATUS;",
+            "    char saved_w = W;",
+            "    ",
+            "    // Check interrupt flags",
+            "    if (${1:INTFLAG})",
+            "    {",
+            "        $2",
+            "        ${1:INTFLAG} = 0;  // Clear flag",
+            "    }",
+            "    ",
+            "    // Restore registers",
+            "    STATUS = saved_status;",
+            "    W = saved_w;",
+            "}"
+        ],
+        "description": "Interrupt service routine template"
+    }
+}
