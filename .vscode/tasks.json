@@ -1,0 +1,76 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "CC5X Direct Wine",
+            "type": "shell",
+            "command": "${workspaceFolder}/cc5x-direct.sh",
+            "args": [
+                "${file}"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "clear": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "CC5X Native Compile",
+            "type": "shell",
+            "command": "${workspaceFolder}/cc5x-compile.sh",
+            "args": [
+                "${file}"
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "clear": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "GCC Mock Compile",
+            "type": "shell",
+            "command": "${workspaceFolder}/gcc-mock-compile.sh",
+            "args": [
+                "${file}"
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "clear": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Clean Output Files",
+            "type": "shell",
+            "command": "rm -f ${workspaceFolder}/output/*.hex ${workspaceFolder}/output/*.asm ${workspaceFolder}/output/*.lst",
+            "problemMatcher": []
+        },
+        {
+            "label": "Copy PIC Headers",
+            "type": "shell",
+            "command": "mkdir -p ${workspaceFolder}/include/headers && cp \"${env:HOME}/.cxoffice/Crossword_Compiler_9/drive_c/Program Files/bknd/CC5X/\"*.H ${workspaceFolder}/include/headers/",
+            "problemMatcher": []
+        },
+        {
+            "label": "Project Cleanup",
+            "type": "shell",
+            "command": "${workspaceFolder}/cleanup.sh",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "clear": true
+            },
+            "problemMatcher": []
+        }
+    ]
+}

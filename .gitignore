@@ -1,0 +1,24 @@
+# Output files
+output/*.hex
+output/*.asm
+output/*.lst
+output/*.var
+output/*.occ
+
+# Temporary files
+*.bak
+*.tmp
+*~
+
+# Build directories
+build/
+bin/
+obj/
+
+# VSCode specific files
+.vscode/.browse.c_cpp.db*
+.vscode/ipch/
+
+# CrossOver/Wine temporary files
+/tmp/cc5x_wine_compile/
+*.wine

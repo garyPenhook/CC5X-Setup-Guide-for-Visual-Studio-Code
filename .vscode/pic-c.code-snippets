@@ -1,0 +1,49 @@
+{
+    "PIC Program Template": {
+        "scope": "c",
+        "prefix": "pictemplate",
+        "body": [
+            "/*",
+            " * Project: ${1:Project Name}",
+            " * Description: ${2:Description}",
+            " * Device: PIC${3:16F877}",
+            " */",
+            "",
+            "#pragma chip PIC$3",
+            "",
+            "// Pin definitions",
+            "#pragma bit ${4:LED} @ ${5:PORTA.0}",
+            "",
+            "void main(void)",
+            "{",
+            "    // Initialize ports",
+            "    PORTA = 0;",
+            "    TRISA = 0b11111110; // RA0 as output",
+            "    ",
+            "    // Main loop",
+            "    while(1) {",
+            "        $0",
+            "    }",
+            "}"
+        ],
+        "description": "Template for PIC C program"
+    },
+    "Delay Function": {
+        "scope": "c",
+        "prefix": "picdelay",
+        "body": [
+            "void delay(unsigned char millisec)",
+            "{",
+            "    /* delays a multiple of 1 millisecond at 4 MHz */",
+            "    do {",
+            "        unsigned char i = 100;",
+            "        do {",
+            "            nop();",
+            "            nop();",
+            "        } while(--i > 0);",
+            "    } while(--millisec > 0);",
+            "}"
+        ],
+        "description": "Simple delay function for PIC"
+    }
+}

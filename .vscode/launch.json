@@ -1,0 +1,24 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug CC5X Build",
+            "type": "shell",
+            "request": "launch",
+            "command": "${workspaceFolder}/cc5x-crossover.sh",
+            "args": [
+                "${file}",
+                "-p${config:picDevice}",
+                "-a",
+                "-L",
+                "-V"
+            ],
+            "cwd": "${workspaceFolder}",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "clear": true
+            }
+        }
+    ]
+}

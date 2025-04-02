@@ -1,0 +1,17 @@
+{
+    "configurations": [
+        {
+            "name": "PIC C Configuration",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${env:HOME}/.cxoffice/Crossword_Compiler_9/drive_c/Program Files/bknd/CC5X/**"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c99",
+            "cppStandard": "c++14",
+            "intelliSenseMode": "linux-gcc-x64"
+        }
+    ],
+    "version": 4
+}

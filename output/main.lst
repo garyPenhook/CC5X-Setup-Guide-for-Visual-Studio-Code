@@ -1,0 +1,100 @@
+CC5X Version 3.8C,   File: main.c               2. Apr 2025  12:49   Page 1
+
+ADDR CODE  LINE SOURCE
+
+           0001 
+           0002 ; CC5X Version 3.8C, Copyright (c) B Knudsen Data
+           0003 ; C compiler for the PICmicro family
+           0004 ; ************   2. Apr 2025  12:49  *************
+           0005 
+           0006         processor  16F15313
+           0007         radix  DEC
+           0008 
+     000C  0009 PORTA       EQU   0x0C
+     0012  0010 TRISA       EQU   0x12
+     0000  0011 LED         EQU   0
+     0020  0012 millisec    EQU   0x20
+     0021  0013 i           EQU   0x21
+           0014 
+0000 280B  0015         GOTO main
+           0016 
+           0017   ; FILE main.c
+           0018                         ;/*
+           0019                         ; * Project: PIC Sample Project
+           0020                         ; * Description: Sample template for PIC microcontroller
+           0021                         ; * Device: PIC16F15313
+           0022                         ; */
+           0023                         ;
+           0024                         ;#pragma chip PIC16F15313
+           0025                         ;
+           0026                         ;// Include device-specific header
+           0027                         ;// #include "16F15313.H"
+           0028                         ;
+           0029                         ;// Pin definitions
+           0030                         ;#pragma bit LED @ PORTA.0
+           0031                         ;
+           0032                         ;// Delay function
+           0033                         ;void delay(unsigned char millisec)
+           0034                         ;{
+           0035 delay
+0001 00A0  0036         MOVWF millisec
+           0037                         ;    /* delays a multiple of 1 millisecond at 4 MHz */
+           0038                         ;    do {
+           0039                         ;        unsigned char i = 100;
+0002 3064  0040 m001    MOVLW 100
+0003 00A1  0041         MOVWF i
+           0042                         ;        do {
+           0043                         ;            nop();
+0004 0000  0044 m002    NOP  
+           0045                         ;            nop();
+0005 0000  0046         NOP  
+           0047                         ;        } while(--i > 0);
+0006 0BA1  0048         DECFSZ i,1
+0007 2804  0049         GOTO  m002
+           0050                         ;    } while(--millisec > 0);
+0008 0BA0  0051         DECFSZ millisec,1
+0009 2802  0052         GOTO  m001
+           0053                         ;}
+000A 0008  0054         RETURN
+           0055                         ;
+           0056                         ;void main(void)
+           0057                         ;{
+           0058 main
+           0059                         ;    // Initialize ports
+           0060                         ;    PORTA = 0;       // Initialize PORTA
+CC5X Version 3.8C,   File: main.c               2. Apr 2025  12:49   Page 2
+
+ADDR CODE  LINE SOURCE
+
+000B 0140  0061         MOVLB 0
+000C 018C  0062         CLRF  PORTA
+           0063                         ;    TRISA = 0b11111110; // Set RA0 as output, others as inputs
+000D 30FE  0064         MOVLW 254
+000E 0092  0065         MOVWF TRISA
+           0066                         ;    
+           0067                         ;    // Main loop
+           0068                         ;    while(1) {
+           0069                         ;        LED = 1;     // Turn LED on
+000F 140C  0070 m003    BSF   0x0C,LED
+           0071                         ;        delay(200);  // Delay 200ms
+0010 30C8  0072         MOVLW 200
+0011 2001  0073         CALL  delay
+           0074                         ;        LED = 0;     // Turn LED off
+0012 100C  0075         BCF   0x0C,LED
+           0076                         ;        delay(200);  // Delay 200ms
+0013 30C8  0077         MOVLW 200
+0014 2001  0078         CALL  delay
+           0079                         ;    }
+0015 280F  0080         GOTO  m003
+           0081 
+           0082         END
+           0083 
+           0084 
+           0085 ; *** KEY INFO ***
+           0086 
+           0087 ; 0x0001   10 word(s)  0 % : delay
+           0088 ; 0x000B   11 word(s)  0 % : main
+           0089 
+           0090 ; RAM usage: 2 bytes (2 local), 254 bytes free
+           0091 ; Maximum call level: 1
+           0092 ; Total of 22 code words (1 %)
