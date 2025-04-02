@@ -1,7 +1,7 @@
 
 ; CC5X Version 3.8C, Copyright (c) B Knudsen Data
 ; C compiler for the PICmicro family
-; ************   2. Apr 2025  12:49  *************
+; ************   2. Apr 2025  13:25  *************
 
         processor  16F15313
         radix  DEC
@@ -21,62 +21,62 @@ i           EQU   0x21
                         ; * Device: PIC16F15313
                         ; */
                         ;
-                        ;#pragma chip PIC16F15313
+                        ;//#pragma chip PIC16F15313
                         ;
-                        ;// Include device-specific header
-                        ;// #include "16F15313.H"
+                        ;
+                        ;#ifdef __CLANGD__
+                        ;#include <pic/16f15313.h>
+                        ;#endif
                         ;
                         ;// Pin definitions
-                        ;#pragma bit LED @ PORTA.0
+                        ;#pragma bit LED @PORTA.0
                         ;
                         ;// Delay function
-                        ;void delay(unsigned char millisec)
-                        ;{
+                        ;void delay(unsigned char millisec) {
 delay
         MOVWF millisec
-                        ;    /* delays a multiple of 1 millisecond at 4 MHz */
-                        ;    do {
-                        ;        unsigned char i = 100;
+                        ;  /* delays a multiple of 1 millisecond at 4 MHz */
+                        ;  do {
+                        ;    unsigned char i = 100;
 m001    MOVLW 100
         MOVWF i
-                        ;        do {
-                        ;            nop();
+                        ;    do {
+                        ;      nop();
 m002    NOP  
-                        ;            nop();
+                        ;      nop();
         NOP  
-                        ;        } while(--i > 0);
+                        ;    } while (--i > 0);
         DECFSZ i,1
         GOTO  m002
-                        ;    } while(--millisec > 0);
+                        ;  } while (--millisec > 0);
         DECFSZ millisec,1
         GOTO  m001
                         ;}
         RETURN
                         ;
-                        ;void main(void)
-                        ;{
+                        ;void main(void) {
 main
-                        ;    // Initialize ports
-                        ;    PORTA = 0;       // Initialize PORTA
+                        ;  // Initialize ports
+                        ;  PORTA = 0;          // Initialize PORTA
         MOVLB 0
         CLRF  PORTA
-                        ;    TRISA = 0b11111110; // Set RA0 as output, others as inputs
+                        ;  TRISA = 0b11111110; // Set RA0 as output, others as inputs
         MOVLW 254
         MOVWF TRISA
-                        ;    
-                        ;    // Main loop
-                        ;    while(1) {
-                        ;        LED = 1;     // Turn LED on
+                        ;
+                        ;  // Main loop
+                        ;  while (1) {
+                        ;    LED = 1;    // Turn LED on
 m003    BSF   0x0C,LED
-                        ;        delay(200);  // Delay 200ms
+                        ;    delay(200); // Delay 200ms
         MOVLW 200
         CALL  delay
-                        ;        LED = 0;     // Turn LED off
+                        ;    LED = 0;    // Turn LED off
         BCF   0x0C,LED
-                        ;        delay(200);  // Delay 200ms
+                        ;    delay(200); // Delay 200ms
         MOVLW 200
         CALL  delay
-                        ;    }
+                        ;  }
         GOTO  m003
 
         END

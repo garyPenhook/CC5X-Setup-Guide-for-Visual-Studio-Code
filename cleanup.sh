@@ -8,7 +8,6 @@ PROJECT_ROOT="/home/avr1/software/cc5x"
 # List of scripts to keep
 KEEP_SCRIPTS=(
   "cc5x-direct.sh"
-  "cc5x-compile.sh"
   "gcc-mock-compile.sh"
   "cleanup.sh"
 )
@@ -78,12 +77,21 @@ for file in "$PROJECT_ROOT"/*; do
     extension="${filename##*.}"
     
     # Keep only specific file types and Makefile
-    if [[ "$extension" != "sh" && "$extension" != "md" && "$filename" != "Makefile" && "$filename" != "CMakeLists.txt" ]]; then
+    if [[ "$extension" != "sh" && "$extension" != "md" && "$filename" != "Makefile" && "$filename" != "compile_commands.json" ]]; then
       echo "  Removing $filename"
       rm -f "$file"
     fi
   fi
 done
+
+# Explicitly remove CMake files
+echo "Removing CMake files..."
+rm -f "$PROJECT_ROOT/CMakeLists.txt"
+rm -f "$PROJECT_ROOT/build.sh"
+rm -rf "$PROJECT_ROOT/build"
+rm -rf "$PROJECT_ROOT/.cmake"
+rm -rf "$PROJECT_ROOT/CMakeFiles"
+rm -f "$PROJECT_ROOT/CMakeCache.txt"
 
 echo "Clean up complete!"
 echo "Remaining project structure:"

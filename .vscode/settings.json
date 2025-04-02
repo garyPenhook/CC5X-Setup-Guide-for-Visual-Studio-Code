@@ -1,3 +1,15 @@
 {
-    "picDevice": "16F15313"
+    "picDevice": "16F15313",
+    "C_Cpp.default.compileCommands": "compile_commands.json",
+    "C_Cpp.default.includePath": [
+        "${workspaceFolder}/include/headers"
+    ],
+    "C_Cpp.default.defines": [
+        "__CC5X__",
+        "PIC16F15313"
+    ],
+    "files.associations": {
+        "*.H": "c"
+    },
+    "editor.formatOnSave": true
 }

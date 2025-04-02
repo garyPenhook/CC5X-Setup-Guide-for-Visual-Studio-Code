@@ -1,0 +1,7 @@
+[
+    {
+        "directory": "/home/avr1/software/cc5x",
+        "command": "gcc -I./include/headers -D__CC5X__ -DPIC16F15313 -o src/main.o -c src/main.c",
+        "file": "src/main.c"
+    }
+]
