@@ -1,11 +1,11 @@
-CC5X Version 3.8C,   File: main.c               2. Apr 2025  13:25   Page 1
+CC5X Version 3.8C,   File: main.c               2. Apr 2025  13:28   Page 1
 
 ADDR CODE  LINE SOURCE
 
            0001 
            0002 ; CC5X Version 3.8C, Copyright (c) B Knudsen Data
            0003 ; C compiler for the PICmicro family
-           0004 ; ************   2. Apr 2025  13:25  *************
+           0004 ; ************   2. Apr 2025  13:28  *************
            0005 
            0006         processor  16F15313
            0007         radix  DEC
@@ -61,40 +61,41 @@ ADDR CODE  LINE SOURCE
            0057                         ;void main(void) {
            0058 main
            0059                         ;  // Initialize ports
-           0060                         ;  PORTA = 0;          // Initialize PORTA
-CC5X Version 3.8C,   File: main.c               2. Apr 2025  13:25   Page 2
+           0060                         ;  PORTA = 0xFF;          // Initialize PORTA
+CC5X Version 3.8C,   File: main.c               2. Apr 2025  13:28   Page 2
 
 ADDR CODE  LINE SOURCE
 
-000B 0140  0061         MOVLB 0
-000C 018C  0062         CLRF  PORTA
-           0063                         ;  TRISA = 0b11111110; // Set RA0 as output, others as inputs
-000D 30FE  0064         MOVLW 254
-000E 0092  0065         MOVWF TRISA
-           0066                         ;
-           0067                         ;  // Main loop
-           0068                         ;  while (1) {
-           0069                         ;    LED = 1;    // Turn LED on
-000F 140C  0070 m003    BSF   0x0C,LED
-           0071                         ;    delay(200); // Delay 200ms
-0010 30C8  0072         MOVLW 200
-0011 2001  0073         CALL  delay
-           0074                         ;    LED = 0;    // Turn LED off
-0012 100C  0075         BCF   0x0C,LED
-           0076                         ;    delay(200); // Delay 200ms
-0013 30C8  0077         MOVLW 200
-0014 2001  0078         CALL  delay
-           0079                         ;  }
-0015 280F  0080         GOTO  m003
-           0081 
-           0082         END
-           0083 
+000B 30FF  0061         MOVLW 255
+000C 0140  0062         MOVLB 0
+000D 008C  0063         MOVWF PORTA
+           0064                         ;  TRISA = 0b11111110; // Set RA0 as output, others as inputs
+000E 30FE  0065         MOVLW 254
+000F 0092  0066         MOVWF TRISA
+           0067                         ;
+           0068                         ;  // Main loop
+           0069                         ;  while (1) {
+           0070                         ;    LED = 1;    // Turn LED on
+0010 140C  0071 m003    BSF   0x0C,LED
+           0072                         ;    delay(200); // Delay 200ms
+0011 30C8  0073         MOVLW 200
+0012 2001  0074         CALL  delay
+           0075                         ;    LED = 0;    // Turn LED off
+0013 100C  0076         BCF   0x0C,LED
+           0077                         ;    delay(200); // Delay 200ms
+0014 30C8  0078         MOVLW 200
+0015 2001  0079         CALL  delay
+           0080                         ;  }
+0016 2810  0081         GOTO  m003
+           0082 
+           0083         END
            0084 
-           0085 ; *** KEY INFO ***
-           0086 
-           0087 ; 0x0001   10 word(s)  0 % : delay
-           0088 ; 0x000B   11 word(s)  0 % : main
-           0089 
-           0090 ; RAM usage: 2 bytes (2 local), 254 bytes free
-           0091 ; Maximum call level: 1
-           0092 ; Total of 22 code words (1 %)
+           0085 
+           0086 ; *** KEY INFO ***
+           0087 
+           0088 ; 0x0001   10 word(s)  0 % : delay
+           0089 ; 0x000B   12 word(s)  0 % : main
+           0090 
+           0091 ; RAM usage: 2 bytes (2 local), 254 bytes free
+           0092 ; Maximum call level: 1
+           0093 ; Total of 23 code words (1 %)

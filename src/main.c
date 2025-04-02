@@ -4,11 +4,21 @@
  * Device: PIC16F15313
  */
 
-//#pragma chip PIC16F15313
+// Device selection
+#pragma chip PIC16F15313
 
+// Include device-specific header
+#include "16F15313.H"
 
+// For C/C++ IntelliSense (IDE support), also define hardware
 #ifdef __CLANGD__
-#include <pic/16f15313.h>
+// These defines help the IDE understand the hardware registers
+#ifndef PORTA
+#define PORTA (*((volatile unsigned char *)0x0C))
+#endif
+#ifndef TRISA
+#define TRISA (*((volatile unsigned char *)0x8C))
+#endif
 #endif
 
 // Pin definitions

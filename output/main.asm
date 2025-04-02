@@ -1,7 +1,7 @@
 
 ; CC5X Version 3.8C, Copyright (c) B Knudsen Data
 ; C compiler for the PICmicro family
-; ************   2. Apr 2025  13:25  *************
+; ************   2. Apr 2025  13:28  *************
 
         processor  16F15313
         radix  DEC
@@ -57,9 +57,10 @@ m002    NOP
                         ;void main(void) {
 main
                         ;  // Initialize ports
-                        ;  PORTA = 0;          // Initialize PORTA
+                        ;  PORTA = 0xFF;          // Initialize PORTA
+        MOVLW 255
         MOVLB 0
-        CLRF  PORTA
+        MOVWF PORTA
                         ;  TRISA = 0b11111110; // Set RA0 as output, others as inputs
         MOVLW 254
         MOVWF TRISA
@@ -85,8 +86,8 @@ m003    BSF   0x0C,LED
 ; *** KEY INFO ***
 
 ; 0x0001   10 word(s)  0 % : delay
-; 0x000B   11 word(s)  0 % : main
+; 0x000B   12 word(s)  0 % : main
 
 ; RAM usage: 2 bytes (2 local), 254 bytes free
 ; Maximum call level: 1
-; Total of 22 code words (1 %)
+; Total of 23 code words (1 %)
