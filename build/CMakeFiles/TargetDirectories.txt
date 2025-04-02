@@ -1,5 +1,0 @@
-/home/avr1/software/cc5x/build/CMakeFiles/build_all.dir
-/home/avr1/software/cc5x/build/CMakeFiles/main_target.dir
-/home/avr1/software/cc5x/build/CMakeFiles/clean_all.dir
-/home/avr1/software/cc5x/build/CMakeFiles/edit_cache.dir
-/home/avr1/software/cc5x/build/CMakeFiles/rebuild_cache.dir
