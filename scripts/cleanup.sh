@@ -8,6 +8,7 @@ PROJECT_ROOT="/home/avr1/software/cc5x"
 # List of scripts to keep
 KEEP_SCRIPTS=(
   "cc5x-direct.sh"
+  "cc5x-compile.sh"
   "gcc-mock-compile.sh"
   "cleanup.sh"
 )

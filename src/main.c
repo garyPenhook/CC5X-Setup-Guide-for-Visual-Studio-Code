@@ -1,51 +1,49 @@
 /*
- * Project: PIC Sample Project
- * Description: Sample template for PIC microcontroller
- * Device: PIC16F15313
+ * Simple blink LED example for PIC16F15313
+ * Using CC5X Compiler
  */
 
-// Device selection
-#pragma chip PIC16F15313
-
-// Include device-specific header
 #include "16F15313.H"
+#pragma config WDTE = OFF // Disable Watchdog timer
+#pragma config MCLRE = ON // Master Clear Enable
+#pragma config LVP = ON   // Low Voltage Programming Enable
 
-// For C/C++ IntelliSense (IDE support), also define hardware
-#ifdef __CLANGD__
-// These defines help the IDE understand the hardware registers
-#ifndef PORTA
-#define PORTA (*((volatile unsigned char *)0x0C))
-#endif
-#ifndef TRISA
-#define TRISA (*((volatile unsigned char *)0x8C))
-#endif
-#endif
-
-// Pin definitions
-#pragma bit LED @PORTA.0
-
-// Delay function
-void delay(unsigned char millisec) {
-  /* delays a multiple of 1 millisecond at 4 MHz */
-  do {
-    unsigned char i = 100;
-    do {
-      nop();
-      nop();
-    } while (--i > 0);
-  } while (--millisec > 0);
-}
+// Function prototypes
+void delay_ms(unsigned int ms);
+void initialize(void);
 
 void main(void) {
   // Initialize ports
-  PORTA = 0;          // Initialize PORTA
-  TRISA = 0b11111110; // Set RA0 as output, others as inputs
+  initialize();
 
-  // Main loop
+  // Main program loop
   while (1) {
-    LED = 1;    // Turn LED on
-    delay(200); // Delay 200ms
-    LED = 0;    // Turn LED off
-    delay(200); // Delay 200ms
+    // Toggle LED on RA0
+    RA0 = 1; // LED on
+    delay_ms(500);
+    RA0 = 0; // LED off
+    delay_ms(500);
+  }
+}
+
+void initialize(void) {
+  // Configure port A
+  TRISA = 0b11111110; // RA0 as output, others as inputs
+  PORTA = 0x00;       // Initialize PORTA
+
+  // Configure oscillator
+  OSCCON1 = 0x60; // HFINTOSC at 4MHz
+
+  // Disable analog functionality
+  ANSELA = 0x00;
+}
+
+void delay_ms(unsigned int ms) {
+  unsigned int i, j;
+  for (i = 0; i < ms; i++) {
+    // This loop creates approximately 1ms delay at 4MHz
+    for (j = 0; j < 400; j++) {
+      // Empty loop with no inline assembly
+    }
   }
 }

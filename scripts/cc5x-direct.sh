@@ -37,11 +37,6 @@ cp "$SOURCE_FILE" "$TEMP_DIR/${BASENAME}.c" > /dev/null 2>&1
 INCLUDE_DIR="$OUTPUT_DIR/../include/headers"
 mkdir -p "$INCLUDE_DIR" > /dev/null 2>&1
 
-# Copy CC5X files to the include directory if headers don't exist
-if [ ! -f "$INCLUDE_DIR/16F15313.H" ]; then
-    cp "$CC5X_DIR/"*.H "$INCLUDE_DIR/" 2>/dev/null
-fi
-
 # Copy CC5X to temp directory for easier access
 mkdir -p "$TEMP_DIR/cc5x" > /dev/null 2>&1
 cp "$CC5X_DIR"/*.* "$TEMP_DIR/cc5x/" 2>/dev/null
@@ -56,8 +51,8 @@ cd "$TEMP_DIR" || exit 1
 # Create a temp file to capture compiler output
 COMPILER_OUT="$TEMP_DIR/compiler.out"
 
-# Run CC5X with system Wine and capture output
-WINEDEBUG=-all wine "$TEMP_DIR/cc5x/CC5X.EXE" "${BASENAME}.c" -I./include -p16F15313 -a -L -V > "$COMPILER_OUT" 2>&1
+# Run CC5X with system Wine - REMOVED the -p16F15313 flag to avoid duplicate definition
+WINEDEBUG=-all wine "$TEMP_DIR/cc5x/CC5X.EXE" "${BASENAME}.c" -I./include -a -L -V > "$COMPILER_OUT" 2>&1
 RESULT=$?
 
 # Display only essential compiler output - filter out noise

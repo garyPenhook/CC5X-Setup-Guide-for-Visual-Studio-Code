@@ -1,7 +1,7 @@
 [
     {
         "directory": "/home/avr1/software/cc5x",
-        "command": "gcc -I${workspaceFolder}/include/headers -D__CC5X__ -DPIC16F15313 -DPORTA=*((volatile unsigned char*)0x0C) -DTRISA=*((volatile unsigned char*)0x8C) -o src/main.o -c src/main.c",
-        "file": "src/main.c"
+        "command": "cc5x -p16F15313 -I/home/avr1/software/cc5x/include/headers src/main.c",
+        "file": "/home/avr1/software/cc5x/src/main.c"
     }
 ]

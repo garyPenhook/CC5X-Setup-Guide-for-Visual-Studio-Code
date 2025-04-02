@@ -5,13 +5,9 @@
             "name": "Debug CC5X Build",
             "type": "shell",
             "request": "launch",
-            "command": "${workspaceFolder}/cc5x-crossover.sh",
+            "command": "${workspaceFolder}/scripts/cc5x-direct.sh",
             "args": [
-                "${file}",
-                "-p${config:picDevice}",
-                "-a",
-                "-L",
-                "-V"
+                "${file}"
             ],
             "cwd": "${workspaceFolder}",
             "presentation": {

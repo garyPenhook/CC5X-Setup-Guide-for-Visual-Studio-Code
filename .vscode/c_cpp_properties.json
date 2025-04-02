@@ -8,9 +8,9 @@
             ],
             "defines": [
                 "__CC5X__",
-                "PIC16F15313",
-                "PORTA=*((volatile unsigned char*)0x0C)",
-                "TRISA=*((volatile unsigned char*)0x8C)"
+                "nop()=",
+                "LED=PORTA_bits.RA0",
+                "PORTA_bits=(*((struct { unsigned RA0:1; unsigned RA1:1; unsigned RA2:1; unsigned RA3:1; unsigned RA4:1; unsigned RA5:1; unsigned :2; } volatile *)0x0C))"
             ],
             "compilerPath": "/usr/bin/gcc",
             "cStandard": "c99",
